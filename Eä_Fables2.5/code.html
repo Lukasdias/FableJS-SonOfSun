@@ -1,0 +1,252 @@
+<fable width="1000px" height="600px" bg-sound="graphics/montagne.mp3">
+			<page id="1" bg-image="graphics/BG.png" transition="fadeIn">
+				<div class="title" id="title" style="position: relative; left:200px; top:50px;"
+					transition="fadeIn">O pequeno cavaleiro</div>
+					<on-touch>
+						<audio id="audioTeste" src="graphics/alone.mp3" role="play"></audio>
+					</on-touch>
+				<!--cavaleiro e historia-->
+				<img  src="graphics/char1.png" width="100" height="130" x="100" y="300"></img>
+				<agent id="inicio">
+					<state id="text1">
+						<on-touch>
+							<div style="position: absolute; left: 250px; top: 220px; font-size:30px; width:400px;">
+				            	<p transition="fadeIn">Era uma vez um pequeno cavaleiro que recebeu uma carta de um amigo.</p>
+				        	</div>
+							<target start="inicio#text2">
+						</on-touch>
+					</state>
+					<state id="text2">
+						<on-touch>
+							<div style="position: absolute; left: 250px; top: 220px; font-size:30px; width:400px;">
+				            	<p transition="fadeIn" >Ele ficou muito muito muito surpreso, pois esse amigo tinha sumido a anos.</p>
+				        	</div>
+							<target start="inicio#text3">
+						</on-touch>
+					</state>
+					<state id="text3">
+						<on-touch>
+							<div style="position: absolute; left: 250px; top: 210px; font-size:30px; width:400px;">
+				           		<p transition="fadeIn">Só que as noticias na carta não eram muito boas. O seu amigo tinha contraído uma doença misteriosa e precisava 	de ajuda para pegar a cura.</p>
+				        	</div>
+							<target start="inicio#text4">
+						</on-touch>
+					</state>
+					<state id="text4">
+						<on-touch>
+							<img src="graphics/sign2.png" x="600" y="500" transition="tada">
+							<target start="page#2">
+						</on-touch>
+						<div style="position: absolute; left: 250px; top: 220px; font-size:30px; width:400px;">
+				        	<p transition="fadeIn">O mais rápido que pôde ele foi ao encontro desse amigo.</p>
+				        </div>
+					</state>
+				</agent>
+				<img src="graphics/block.png" x="90"  y="421"/>
+			</page>
+			<!--Página 2--Entrada da Caverna-->
+			<page id="2" bg-image="graphics/BG.png">
+				<property name="hasKey" value="false">
+				<img id="bloco" src="graphics/block.png" width="480" height="500" x="300" y="300"/>
+				<img src="graphics/char1.png" width="100" height="130" x="100" y="430"></img>
+				<img id="floor" src="graphics/block.png" style="left: 0px; top: 550px; width: 800px ; height: 100px"/>
+				<agent id="bush1">
+					<state id="verifica">
+						<div style="position: absolute; left: 300px; top: 50px; font-size:30px; width:500px;">
+							<p>Após sete dias e sete noite de viagem, o cavaleiro chegou a caverna.
+							   Agora precisa encontrar a chave da entrada que está escondida na vegetação local.</p>
+						</div>
+						<on-touch>
+							<img id="um" src="graphics/bush.png" x="50" y="505"/>
+							<audio id="audioTeste" src="graphics/bush_sound.wav" role="play"></audio>
+							<set target="hasKey" value="true"></set>
+							<target start="bush1#verificado">
+						</on-touch>
+					</state>
+					<state id="verificado">
+						<div style="position: absolute; left: 300px; top: 50px; font-size:30px; width:500px;">
+							<p transition="tada">Legal!! Você encontrou o chave!! Arraste-a até a porta para abri-la.</p>
+						</div>
+						<img id="keyEntrada" src="graphics/key.png" draggable x="150" y="305" width="40" height="20">
+						<on-touch>
+							<alert on-start="true">chave encontrada!</alert>
+							<img id="um" src="graphics/bush.png" x="50" y="505"/>
+						</on-touch>
+					</state>
+				</agent>
+				<agent id="bush2">
+					<state id="verifica">
+						<on-touch>
+							<img id="um" src="graphics/bush.png" x="150" y="505"/>
+							<alert>não tem nada aqui!</alert>
+							<target start="bush2#verificado">
+						</on-touch>
+					</state>
+					<state id="verificado">
+						<on-touch>
+							<audio id="audioTeste" src="graphics/bush_sound.wav" role="play"></audio>
+							<img id="um" src="graphics/bush.png" x="150" y="505"/>
+							<alert>já olhei</alert>
+						</on-touch>
+					</state>
+				</agent>
+				<agent id="door">
+					<state id="fechada">
+						<detect target="keyEntrada" event="changeState" of="door" for="aberta" x="400" y="400" w="80" h="140">
+						</detect>
+						<img id="porta_fechada" src="graphics/DoorLocked.png" x="400" y="400" width="80" height="140"/>
+					</state>
+					<state id="aberta">
+						<on-touch>
+							<img id="porta_fechada" src="graphics/DoorOpen.png" x="400" y="400" width="80" height="140"/>
+							<target start="page#3">
+						</on-touch>	
+					</state>
+				</agent>
+			</page>
+			<!--Página 3--Caverna-->
+			<page id="3"  bg-image="graphics/BGcavern.png">
+				<img id="floor" src="graphics/cavern_floor.png" x="0" y="550" width="800" height="100"/>
+				<board id="placa1" set-class="classic-board" font-size="20px" x="100" y="100" width="300" color="white">
+					Ao entra na caverno o cavaleiro avista duas portas uma a esquerda que parece dar em um caminho sem saida e outra
+					com um foco de luz bem baixo.
+				</board>
+				<img src="graphics/char1.png" width="100" height="130" style="position: absolute; left: 300px; top: 440px"></img>
+				<agent id="porta_esquerda">
+					<state>
+						<on-touch>
+							<img id="porta_esquerda" src="graphics/DoorLocked.png" x="50" y="400" width="80" height="140"/>
+							<target start="page#4">
+							<play type="audio" src="graphics/door_effect.wav">
+						</on-touch>
+					</state>
+				</agent>
+				<agent id="porta_direita">
+					<state>
+						<on-touch>
+							<img id="porta_esquerda" src="graphics/DoorLocked.png" x="550" y="400" width="80" height="140"/>
+							<target start="page#5">
+							<play type="audio" src="graphics/door_effect.wav">
+						</on-touch>
+					</state>
+				</agent>
+			</page>
+			<!--Página 4--Caixas-->
+			<page id="4" bg-image="graphics/BGcavern.png">
+			<board set-class="classic-board" x="130" y="60" width="300" color="white">
+					Um armazém cheio de caixas o que será que tem dentro delas?(clique nas caixas para vasculha-las.)
+			</board>
+			<property name="antidote" value="false">
+			<img id="floor" src="graphics/cavern_floor.png" style="position: absolute; left: 0px; top: 550px; width: 800px ; height: 100px"/>
+			<img src="graphics/char1.png" width="100" height="130" style="position: absolute; left: 200px; top: 430px"/>
+			<agent id="caixa1">
+				<state id="fechada">
+					<on-touch>
+						<img id="caixa" src="graphics/box.png" x="200" y="200" width="120" height="120">
+						<target start="caixa1#aberta">
+					</on-touch>
+				</state>
+				<state id="aberta">
+					<img transition="fadeOut" id="caixa" src="graphics/box.png" x="200" y="200" width="120" height="120"/>
+				</state>
+			</agent>
+			<agent id="caixa2">
+				<state id="fechada">
+					<on-touch>
+						<set target="antidote" value="true"></set>
+						<img id="caixa" src="graphics/box.png" x="600" y="200" width="120" height="120">
+						<target start="caixa2#aberta"></target>
+					</on-touch>
+				</state>
+				<state id="aberta">
+					<img transition="fadeOut" id="caixa" src="graphics/box.png" x="600" y="200" width="120" height="120"/>
+					<on-touch>
+						<img  src="graphics/mush.png" x="600" y="200" width="60" height="60"/>
+						<alert>Elixir encontrado</alert>
+						<target start="elixir#encontrado"></target>
+					</on-touch>
+				</state>
+			</agent>
+			
+			<agent id="caixa3">
+				<state id="fechada">
+					<on-touch>
+						<img id="caixa" src="graphics/box.png"  x="350" y="350" width="120" height="120">
+						<alert>caixa vazia</alert>
+						<target start="caixa3#aberta">
+					</on-touch>
+				</state>
+				<state id="aberta">
+					<img id="caixa" src="graphics/box.png" transition="fadeOut" x="350" y="350" width="120" height="120">
+				</state>
+			</agent>
+			<agent id="porta_esquerda">
+				<state>
+					<on-touch>
+						<img id="porta_esquerda" src="graphics/DoorOpen.png" x="50" y="400" width="80" height="140"/>
+						<target start="page#3">
+					</on-touch>
+				</state>
+			</agent>
+				
+			</page>
+			<!--Página 5--Saida-->
+			<page id="5" bg-image="graphics/graveyard.png">
+			<img id="floor" src="graphics/futuretile.png" x="0" y="550" width="800" height="100"/>
+			<img src="graphics/char1.png" width="100" height="130" x="200" y="430"/>
+			<agent id="amigo">
+				<state id="parado">
+					<board set-class="classic-board" font-size="30px" x="200" y="100" width="200" color="white">
+						Clique no zombie para ver o que acontece.
+					</board>
+					<on-touch>
+						<img id="zombie" src="graphics/zombie.png" x="600" y="430" width="100" height="130"/>
+						<test target="antidote" value="true">
+							<shout execute="changeState" target="amigo#vivo"/>
+						</test>
+						<test target="antidote" value="false">
+							<shout execute="changeState" target="amigo#morto"/>
+						</test>
+					</on-touch> 
+				</state>
+				<!--estado do amigo voltando a vida-->
+				<state id="vivo">
+					<board set-class="classic-board" width="400"  x="200" y="100" color="white">
+						Você me salvou primeiro cavaleiro!! Obrigado!!
+					</board>
+					<animation speed="50" y="430" x="600" repeat="yes" width="100" height="130">
+						<img src="graphics/animation-jump/Idle1.png"></img>
+						<img src="graphics/animation-jump/Idle2.png"></img>
+						<img src="graphics/animation-jump/Idle3.png"></img>
+						<img src="graphics/animation-jump/Idle4.png"></img>
+						<img src="graphics/animation-jump/Idle5.png"></img>
+						<img src="graphics/animation-jump/Idle6.png"></img>
+						<img src="graphics/animation-jump/Idle7.png"></img>
+						<img src="graphics/animation-jump/Idle8.png"></img>
+						<img src="graphics/animation-jump/Idle9.png"></img>
+						<img src="graphics/animation-jump/Idle10.png"></img>
+					</animation>
+				</state>
+				<!--estado do amigo morrendo-->
+				<state id="morto">
+					<board set-class="classic-board" width="400" height="200" x="200" y="100" color="white">
+						Oh não você esqueceu o elixir!! Morrir!!
+					</board>
+					<animation speed="10" y="430" x="600" repeat="no" width="100" height="130">
+						<img src="graphics/animation-dead/dead1.png"></img>
+						<img src="graphics/animation-dead/dead2.png"></img>
+						<img src="graphics/animation-dead/dead3.png"></img>
+						<img src="graphics/animation-dead/dead4.png"></img>
+						<img src="graphics/animation-dead/dead5.png"></img>
+						<img src="graphics/animation-dead/dead6.png"></img>
+						<img src="graphics/animation-dead/dead7.png"></img>
+						<img src="graphics/animation-dead/dead8.png"></img>
+						<img src="graphics/animation-dead/dead9.png"></img>
+						<img src="graphics/animation-dead/dead10.png"></img>
+						<img src="graphics/animation-dead/dead11.png"></img>
+						<img src="graphics/animation-dead/dead12.png"></img>
+					</animation>
+				</state>
+			</agent>
+			</page>
+	</fable>
