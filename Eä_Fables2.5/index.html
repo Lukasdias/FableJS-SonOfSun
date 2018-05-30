@@ -13,6 +13,13 @@
 <style>
 * {
  	margin:0;
+    text-shadow: 1px 0px 0px red, 
+                 -1px 0px 0px red, 
+                 0px 1px 0px red, 
+                 0px -1px 0px red;
+    font-size: 100%;
+    font-weight: bold;
+    color: #FFF;
  }
 </style>
 <body>
@@ -22,12 +29,6 @@
 				<!--EÄ filho da luz-->
 				<agent id="inicio">
 					<state  id="text1">
-						<style type="">
-						div {
-						font-size: 30px;
-						font-weight: bold;
-						}
-						</style>
 						<div left="550" top="220" width="400" font-size="30" font-color="black">
 						<p transition="animated rollIn">Era uma vez um pequeno garoto muito amigo do Sol</p>
 			  			</div>
@@ -36,12 +37,6 @@
 						</on-touch>
 					</state>
 					<state id="text2">
-						<style type="">
-						div {
-						font-size: 30px;
-						font-weight: bold;
-						}
-						</style>
 						<div class="negrito" left="550" top="220" width="400" font-size="30" font-color="black">
 			            	<p transition="animated rollIn" >Ele conversava muito com o Sol em muitas de suas viagens, porém um dia...</p>
 			        	</div>
@@ -50,12 +45,6 @@
 						</on-touch>
 					</state>
 					<state id="text3">
-						<style type="">
-						div {
-						font-size: 30px;
-						font-weight: bold;
-						}
-						</style>
 						<div left="550" top="220" width="400" font-size="30" font-color="red">
 			           		<p transition="animated rollIn">Ao  acordar percebeu que o Sol não brilhava mais, questionou-se o por quê disto, e ao refletir sobre lembrou-se da rivalidade do Sol com a sua irmã adotiva a Lua...(melhor falar sobre ela baixinho pois ela pode estar escutando).</p>
 			        	<on-touch>
@@ -406,7 +395,7 @@
 				<state id="text18">
 					<div left="130" top="50" width="400"  font-size="20" font-color="yellow">
 				          <p transition="animated rollIn" > Então em sua mente veio uma lembraça de sua infancia, em que seus pais contavam a história de Lady Maria da Torre Astral uma bela e poderosa feiticeira, que foi corrompida pela Lua e trancafiada na caverna do Ginnungagap </p>
-				           <p transition="animated rollIn">A caverna onde o primeiro Humano surgiu, e ele forjou a Everlasting Sword a única lâmina capaz de ferir o témido Gwyn.</p>
+				           <p transition="animated rollIn">A caverna onde o primeiro Humano surgiu, e ele forjou a Everlasting Sword a única lâmina capaz de ferir o témido Ornstein.</p>
 				    </div>
 				    <on-touch>
 				    	<change-state target="text19"/>
@@ -470,13 +459,7 @@
 			<img src="graphics/char.png" width="120" height="130" left="210" top="420"/>
 			<agent id="Artorias e Sif">
 				<state id="secret1">
-					<style type="">
-						div {
-						font-size: 30px;
-						font-weight: bold;
-						}
-					</style>
-					<div left="50" top="0" width="400"   font-size="19" font-color="black">
+					<div left="50" top="0" width="400"   font-size="20" font-color="black">
 				          <p transition="animated rollIn"> ????????</p>
 				          <p transition="animated rollIn">	Que lugar é esse?Aquele é...não pode ser...O lendário Artorias O Andrilho do Vácuo, o que ele estaria fazendo num lugar como esse?</p>
 				          <p transition="animated rollIn">Logo ele que era o melhor amigo de Ornstein, por que ele teria se auto-exilado em um lugar como esse?</p>
@@ -487,13 +470,7 @@
 				    </on-touch>
 				</state>
 				<state id="secret2">
-					<style type="">
-						div {
-						font-size: 30px;
-						font-weight: bold;
-						}
-					</style>
-					<div left="50" top="0" width="400"  font-size="17" font-color="black">
+					<div left="50" top="0" width="400"  font-size="20" font-color="black">
 				          <p transition="animated rollIn"> No momento em que Eä pensava, Artorias respondeu:</p>
 				          <p transition="animated rollIn"> Garoto, devo elogiar sua coragem em vir aqui, o que deseja?meu lobo  Sif me contou que você possui um coração puro e repleto de compaixão, isso me alegra, pois vivo neste exilio e tudo que me rodeia é tristeza.</p>
 				          <p transition="animated rollIn"> Não se passa um minuto sem que eu me lembre de Ornstein e tudo em que ele  fez e se transformou, mas vejo que você pode me libertar desse fardo.</p>
@@ -505,13 +482,7 @@
 				</state>
 
 				<state id="secret3">
-				<style type="">
-						div {
-						font-size: 30px;
-						font-weight: bold;
-						}
-				</style>
-					<div left="50" top="50"  width="400"  font-size="19" font-color="black">
+					<div left="50" top="50"  width="400"  font-size="20" font-color="red">
 						<p transition="animated rollIn"> Por favor liberte-me dessa vida dolorosa, deixo a você meu anel, talvez seja útil contra Ornstein</p>
 						<p transition="animated rollIn"> E a você Sif, cuide-se, sabes que és o melhor amigo que já tive e sempre estará em minha mente e meu coração, adeus meu amigo</p>
 						<p transition="animated rollIn">Que o tempo lhe traga de volta para mim</p>
