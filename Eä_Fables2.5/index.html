@@ -13,10 +13,10 @@
 <style>
 * {
  	margin:0;
-    text-shadow: 1px 0px 0px red, 
-                 -1px 0px 0px red, 
-                 0px 1px 0px red, 
-                 0px -1px 0px red;
+    text-shadow: 1px 0px 0px blue, 
+                 -1px 0px 0px blue, 
+                 0px 1px 0px blue, 
+                 0px -1px 0px blue;
     font-size: 100%;
     font-weight: bold;
     color: #FFF;
@@ -309,7 +309,7 @@
 			</state>		
 		</agent>
 		</page>
-			<!--Página 4 GWYN E ELIXIR-->
+			<!--Página 4 Ornstein E O  ELIXIR-->
 			<page id="5" bg-image="graphics/BG5.png" bg-sound="graphics/gwyn_song.m4a">
 			<!--PERSONAGEM LOCALIZAÇAO E MEDIDAS-->
 			<img src="graphics/char.png" width="100" height="130" left="200" top="400"/>
@@ -346,7 +346,7 @@
 				<!--Se nao tiver nada-->
 				<state id="imortal">
 					<div left="600" top="80" width="400" font-size="20" font-color="white">
-						<p transition="animated rollIn"> Você falhou e foi morto por Gwyn, da próxima vez use equipamentos melhores, se é que me entende.Sorte é para os fracos!</p>
+						<p transition="animated rollIn"> Você falhou e foi morto por Ornstein, da próxima vez use equipamentos melhores, se é que me entende.Sorte é para os fracos!</p>
 					</div>
 					<img class="char-rotation"  id="vivo" src="graphics/BOSS.gif" left="350" top="100" width="500" height="450">		
 				</state>
@@ -394,7 +394,7 @@
 				
 				<state id="text18">
 					<div left="130" top="50" width="400"  font-size="20" font-color="yellow">
-				          <p transition="animated rollIn" > Então em sua mente veio uma lembraça de sua infancia, em que seus pais contavam a história de Lady Maria da Torre Astral uma bela e poderosa feiticeira, que foi corrompida pela Lua e trancafiada na caverna do Ginnungagap </p>
+				          <p transition="animated rollIn" > Então em sua mente veio uma lembraça de sua infancia, em que seus pais contavam a história de Lady Maria uma bela e poderosa feiticeira, que foi corrompida pela Lua e trancafiada na caverna do Ginnungagap </p>
 				           <p transition="animated rollIn">A caverna onde o primeiro Humano surgiu, e ele forjou a Everlasting Sword a única lâmina capaz de ferir o témido Ornstein.</p>
 				    </div>
 				    <on-touch>
@@ -472,9 +472,9 @@
 				<state id="secret2">
 					<div left="50" top="0" width="400"  font-size="20" font-color="black">
 				          <p transition="animated rollIn"> No momento em que Eä pensava, Artorias respondeu:</p>
-				          <p transition="animated rollIn"> Garoto, devo elogiar sua coragem em vir aqui, o que deseja?meu lobo  Sif me contou que você possui um coração puro e repleto de compaixão, isso me alegra, pois vivo neste exilio e tudo que me rodeia é tristeza.</p>
+				          <p transition="animated rollIn"> Garoto, devo elogiar sua coragem em vir aqui, o que deseja?minha loba Sif me contou que você possui um coração puro e repleto de compaixão, isso me alegra, pois vivo neste exilio e tudo que me rodeia é tristeza.</p>
 				          <p transition="animated rollIn"> Não se passa um minuto sem que eu me lembre de Ornstein e tudo em que ele  fez e se transformou, mas vejo que você pode me libertar desse fardo.</p>
-				          <p transition="animated rollIn">Ele me soltou uma maldição, em que eu jamais poderei ser morto ou me matar, pórem ele falou que somente um ser de um coração extremamente bondoso poderia me libertar e deixar eu ver meus antepassados</p>
+				          <p transition="animated rollIn">Ele me soltou uma maldição, em que eu jamais poderei ser morto ou me matar, porém ele falou que somente um ser de um coração extremamente bondoso poderia me libertar e deixar eu ver meus antepassados</p>
 				    </div>
 				    <on-touch>
 				    	<change-state target="secret3"/>
@@ -484,8 +484,8 @@
 				<state id="secret3">
 					<div left="50" top="50"  width="400"  font-size="20" font-color="red">
 						<p transition="animated rollIn"> Por favor liberte-me dessa vida dolorosa, deixo a você meu anel, talvez seja útil contra Ornstein</p>
-						<p transition="animated rollIn"> E a você Sif, cuide-se, sabes que és o melhor amigo que já tive e sempre estará em minha mente e meu coração, adeus meu amigo</p>
-						<p transition="animated rollIn">Que o tempo lhe traga de volta para mim</p>
+						<p transition="animated rollIn"> E a você Sif, cuide-se, sabes que és a melhor amiga que já tive e sempre estará em minha mente e meu coração, adeus minha querida</p>
+						<p transition="animated rollIn">Que o tempo a traga de volta para mim</p>
 						<p transition="animated fadeIn">(liberte Artorias de seu fardo(clique nele))</p>
 					</div>
 				</state>		
@@ -545,9 +545,9 @@
 
 			<agent id="boardinicial">
 				<state id="sem_ação">
-					<board font-size="20" left="100" top="100"  color="yellow">
-						Agora é a hora de acabar de vez com isso, você vai pagar pelo que fez com o Sol!
-					</board>
+					<div left="50" top="30" font-size="20" font-color="red">
+						<p transition ="animated fadeIn">Agora é a hora de acabar de vez com isso, você vai pagar pelo que fez com o Sol!
+					</p>
 				</state>
 				<state id="comElixir">
 					<div left="50" top="30" font-size="20" font-color="yellow">
