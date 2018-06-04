@@ -37,7 +37,7 @@
 						</on-touch>
 					</state>
 					<state id="text2">
-						<div class="negrito" left="550" top="220" width="400" font-size="30" font-color="black">
+						<div class="negrito" left="550" top="220" width="400" font-size="25" font-color="black">
 			            	<p transition="animated rollIn" >Ele conversava muito com o Sol em muitas de suas viagens, porém um dia...</p>
 			        	</div>
 						<on-touch>
@@ -45,8 +45,8 @@
 						</on-touch>
 					</state>
 					<state id="text3">
-						<div left="550" top="220" width="400" font-size="30" font-color="red">
-			           		<p transition="animated rollIn">Ao  acordar percebeu que o Sol não brilhava mais, questionou-se o por quê disto, e ao refletir sobre lembrou-se da rivalidade do Sol com a sua irmã adotiva a Lua...(melhor falar sobre ela baixinho pois ela pode estar escutando).</p>
+						<div left="550" top="220" width="400" font-size="25" font-color="red">
+			           		<p transition="animated rollIn">Ao  acordar percebeu que o Sol não brilhava mais, questionou-se o motivo disso, e ao refletir sobre lembrou-se da rivalidade do Sol com a sua irmã adotiva a Lua...(melhor falar sobre ela baixinho pois ela pode estar escutando).</p>
 			        	<on-touch>
 						<emit event="next_page"></emit>
 					    </div>
@@ -60,9 +60,9 @@
 				<agent id="jornada">
 					<state id="text_jornada">
 						<div left="50" top="70" width="400" font-size="20" font-color="red">
-				    		<p transition="animated rollIn">Então Eärendel Passo Largo(que era como ele era chamado na Vila dos Niebelungos, aaa aqueles anões traiçoeiros...mas isso é para outra história...) partiu em uma jornada para recuperar a maçã da luz, o único alimento capaz de fazer o Sol recuperar sua saúde e poder derrotar sua irmã Lua.</p>
+				    		<p transition="animated rollIn">Então ao ver a situação em que o mundo se encontrava, ele partiu mais rápido que o vento e embarcou numa jornada que o levaria para perigos e lugares além de sua imaginação...</p>
 				    		<on-touch>
-					<!--ao tocar pular para a próxima página-->
+					<!--ao tocar no texto pular para a próxima página-->
 							<emit event="next_page"></emit>
 			    		</div>     	
 					</state>
@@ -74,18 +74,6 @@
 			<img class="char-rotation" src="graphics/char.png" width="100" height="130" left="150" top="450"></img>
 			<!--Skullkid-->
 			<img src="graphics/skull.png" width="160" height="200"left="5" top="335"></img>
-				<!--funcionamento a maçã e sua localização na tela-->
-				<agent id="maçã">
-					<property name="com_maçã" value="false">
-					<state id="sumida">
-					</state>
-					<state id="achada">
-						<img transition="animated shake" id="keyEntrada" src="graphics/golden.png" draggable left="200" top="305" width="25" height="25">
-						<on-touch>
-							<set target="com_maçã" value="true"></set>
-						</on-touch>
-					</state>
-				</agent>
 				<agent id="textoPagina2">
 					<!-- Textos da interação entre o skull kid/garoto e o earandel-->
 					<state id="text1">
@@ -168,9 +156,24 @@
 						</div>
 					</state>
 
+				<!--Maçã e suas configurações-->
+				<agent id="maçã">
+					<property name="golden_apple" value="false">
+					<state id="perdida"></state>
+					<state id="encontrada">
+					<img transition="animated infinite tada" src="graphics/golden.png" left="100" top="220" width="50" height="50"/>
+					<on-touch>
+						<set target="golden_apple" value="true"></set>
+						<change-state target="guardada"></change-state>
+					</on-touch>
+					</state>
+					<state id="guardada">
+					<img transition="animated fadeOut" src="graphics/golden_apple.png" left="100" top="220" width="50" height="50"/>
+				</state>
+				</agent>
 
-					<!--maçã-->
-					<state id="texto2">
+					<!--Texto maçã-->
+					<state id="texto_maçã">
 						<div left="400" top="20" width="500" font-size="30">
 							<p transition="animated fadeIn">Você encontrou a maçã dourada!Use ela para ativar o portal adiante , quem sabe o que há lá dentro...</p>
 						</div>
@@ -186,23 +189,31 @@
 					</state>
 
 					<state id="verificado">
-						<trigger agent="maçã" change-state="achada"></trigger>
-						<trigger agent="textoPagina2" change-state="texto2"></trigger>
+						<trigger agent="maçã" change-state="encontrada"></trigger>
+						<trigger agent="textoPagina2" change-state="texto_maçã"></trigger>
 						<on-touch>
 							<alert on-start="true">maçã encontrada!</alert>
 							<img id="um" transition="animated tada" src="graphics/arvore1.png"  left="520" top="243"/>
 						</on-touch>
 					</state>
 				</agent>
-				<!--entrada da da caverna e seus estados(aberta e fechada)-->
+				<!--entrada da caverna e seus estados(aberta e fechada)-->
 				<agent id="portal_negro">
 					<state id="fechada">
+					 <on-touch>
 						<img id="portal_desativado" src="graphics/darkportal1.png" left="335" top="405" width="180" height="170"/>
-						<detect target="keyEntrada" agent="portal_negro" change-state="aberta"></detect>
+						<test target="golden_apple" value="true">
+						<execute action="changeState" target="aberta"></execute>
+						</test>
+						<test target="golden_apple" value="false">
+						<execute action="changeState" target="fechada"></execute>
+						</test>
+					 </on-touch>
 					</state>
+				<!--Configuração  do portal aberto--> 
 					<state id="aberta">
-						<on-touch>
-							<img id="portal_ativado" src="graphics/darkportal.png" left="335" top="405" width="180" height="170"/>
+						<on-touch>		
+							 <img id="portal_ativado" src="graphics/darkportal.png" left="335" top="405" width="180" height="170"/>
 							<emit event="next_page"></emit>
 						</on-touch>
 					</state>
@@ -216,8 +227,8 @@
 					transform: rotateY(180deg);
 				}
 				</style>
-			<img  src="graphics/Mage_3.gif" width="320" height="320" left="135" top="150"></img>
-			<img src="graphics/Mage_1.gif" width="500" height="500" left="180" top="100"></img>
+			<img  class="char-rotation" src="graphics/Mage_3.gif" width="320" height="320" left="245" top="150"></img>
+			<img src="graphics/Mage_2.gif" width="320" height="320" left="35" top="150"></img>
 			<img src="graphics/bonfire_2.gif" width="100" height="100" left="850" top="425"></img>
 
 			<!-- texto inicial da caverna-->
@@ -231,7 +242,7 @@
 						</on-touch>
 				</state>
 				<state id="text11">
-				<div left="200" top="80" width="350" font-size="20" font-color="red">
+				<div left="500" top="80" width="350" font-size="20" font-color="red">
 			           <p transition="animated rollIn" >De repente o mago Medvih falou:</p>
 			    </div>
 			       		<on-touch>
@@ -239,8 +250,8 @@
 						</on-touch>
 				</state>
 				<state id="text12">
-					<div left="300" top="80" width="400" font-size="20" font-color="green">
-				           <p transition="animated rollIn" > "Que sujeito curioso esse que adentrou em nossa caverna Madvih meu irmão, será que ele é aquele rapaz que nós vimos na profecia do tabuleiro de carvalho?
+					<div left="500" top="80" width="400" font-size="20" font-color="green">
+				           <p transition="animated rollIn" > "Que sujeito curioso esse que adentrou em nossa caverna Madvih meu irmão!
 				            </p>
 				    </div>
 				        	<on-touch>
@@ -248,17 +259,23 @@
 							</on-touch>
 				</state>
 				<state id="text13">
-					<div left="250" top="0" width="400" font-size="19" font-color="yellow">
+					<div left="500" top="80" width="400" font-size="20" font-color="yellow">
 				           <p transition="animated rollIn" >Então Madvih também falou:</p>
-				    		<p transition="animated rollIn" > Não sei meu irmão, porém o rapaz é  muito corajoso devo parabenizá-lo, porém não há tempo para enaltece-lo, o Sol necessita de nossa ajuda lembre-se disto, então certamente será ele que vai entrar no portal da água, viajar para o reino dos Eternos e encontrar o elixir dos Eternos, o único item aliado a maçã da luz capaz de reviver o Sol em sua plenitude.</p>
 				    </div>
 				        	<on-touch>
-								<change-state target="text14"/>
+								<change-state target="text13_1"/>
+							</on-touch>
+				<state id="text13_1">
+					<div left="500" top="80" width="400" font-size="20" font-color="yellow">
+					<p transition="animated rollIn" >De fato,  o rapaz é  muito corajoso devo parabenizá-lo, porém não há tempo para enaltece-lo, o Sol necessita de nossa ajuda lembre-se disto, então certamente será ele que vai entrar no portal da água, viajar para o reino dos Eternos e derrotar aquele cara que guarda o poderoso elixir, engraçado não to me lembrando do nome dele.</p>
+				    </div>
+				   <on-touch>
+							<change-state target="text14"/>
 							</on-touch>
 				</state>
 				<state id="text14">
-					<div left="300" top="80" width="400" font-size="25" font-color="red">
-				           <p transition="animated rollIn" > Não há mais tempo para conversa, VÁ, nem tente entrar no outro portal, somente há tristeza naquele lugar.Você tem o poder de muda-lo mas não agora...
+					<div left="500" top="80" width="400" font-size="25" font-color="red">
+				           <p transition="animated rollIn" >Enfim, não há mais tempo para conversa, vá, nem tente entrar no outro portal, somente há tristeza naquele lugar.Você tem o poder de muda-lo mas não agora...
 				            </p>
 				    </div>
 				        	<on-touch>
@@ -266,8 +283,8 @@
 							</on-touch>
 				</state>
 				<state id="text15">
-					<div left="150" top="80" width="400" font-size="23" font-color="green">
-				           <p transition="animated rollIn" > ENTRE NO PORTAL AZUL AGORA EÄRENDEL, O FUTURO DO COSMOS DEPENDE DE VOCÊ!
+					<div left="500" top="80" width="400" font-size="23" font-color="green">
+				           <p transition="animated rollIn" > ENTRE NO PORTAL AZUL AGORA GAROTO, O FUTURO DO MUNDO DEPENDE DE VOCÊ!
 				            </p>
 				    </div>
 			    </state>
@@ -315,9 +332,9 @@
 			<img src="graphics/char.png" width="100" height="130" left="200" top="400"/>
 				<state id="text16">
 					<div left="85" top="80" width="400" font-size="19" font-color="white">
-				          <p transition="animated rollIn" > Você chegou na terra dos eternos, este na sua frente é Ornstein Matador de Dragões, ele guarda o elixir...
+				          <p transition="animated rollIn" > Você chegou na terra dos Eternos, este na sua frente é Ornstein O Assassino de Dragões, ele guarda o elixir...
 				           	</p>
-				           		<p transition="animated rollIn">Use a Everlasting Sword(não a tem?explore mais para encontra-la) para derrotar Ornstein!e colete o elixir que ele irá soltar o mais rápido possível</p>
+				           		<p transition="animated rollIn">Use a Anglachel(não a tem?lascou pra você, se tentar atacar ele, provavel que ele te transforme em um pedaço de chuchu, pelo menos é aquilo que me disseram) para derrotar Ornstein!e colete o elixir que ele irá soltar o mais rápido possível</p>
 				  	</div>
 			    </state>
 			<!--Batalha com o Ornstein-->
@@ -331,6 +348,7 @@
 						 <test target="magic_sword" value="false">
 							<execute action="changeState" target="imortal"></execute>
 						</test>
+					</on-touch>
 				</state>
 				<!--Se tiver a espada-->
 				<state id="derrotado">
@@ -394,15 +412,15 @@
 				
 				<state id="text18">
 					<div left="130" top="50" width="400"  font-size="20" font-color="yellow">
-				          <p transition="animated rollIn" > Então em sua mente veio uma lembraça de sua infancia, em que seus pais contavam a história de Lady Maria uma bela e poderosa feiticeira, que foi corrompida pela Lua e trancafiada na caverna do Ginnungagap </p>
-				           <p transition="animated rollIn">A caverna onde o primeiro Humano surgiu, e ele forjou a Everlasting Sword a única lâmina capaz de ferir o témido Ornstein.</p>
+				          <p transition="animated rollIn" > Então em sua mente veio uma lembraça de sua infancia, em que seus pais contavam a história de Galadriel uma bela e poderosa feiticeira, que foi corrompida pela Lua e trancafiada na caverna do Ginnungagap </p>
+				           <p transition="animated rollIn">A caverna onde os primeiros anões surgiram, e eles forjaram a Anglachel a única lâmina capaz de ferir o temido Ornstein.</p>
 				    </div>
 				    <on-touch>
 				    	<change-state target="text19"/>
 				</state>
 				<state id="text19">
 					<div left="130" top="50" width="400"  font-size="20" font-color="yellow">
-						<p transition="animated rollIn">Agora, a feiticeira acordou e ela guarda a espada, lute contra a poderosa Maria para ter a posse da lendária Everlasting Sword.</p>
+						<p transition="animated rollIn">Agora, a feiticeira acordou e ela guarda a espada, lute contra a poderosa Maria para ter a posse da lendária Anglachel.</p>
 					</div>
 				</state>
 		 	</agent>
@@ -457,12 +475,19 @@
 			<!--Sif-->
 			<img src="graphics/sif.gif" left="410" top="400" width="160" height="170">
 			<img src="graphics/char.png" width="120" height="130" left="210" top="420"/>
-			<agent id="Artorias e Sif">
+			<agent id="Texto Artorias e Sif">
 				<state id="secret1">
 					<div left="50" top="0" width="400"   font-size="20" font-color="black">
 				          <p transition="animated rollIn"> ????????</p>
-				          <p transition="animated rollIn">	Que lugar é esse?Aquele é...não pode ser...O lendário Artorias O Andrilho do Vácuo, o que ele estaria fazendo num lugar como esse?</p>
-				          <p transition="animated rollIn">Logo ele que era o melhor amigo de Ornstein, por que ele teria se auto-exilado em um lugar como esse?</p>
+				          <p transition="animated rollIn">	Que lugar é esse?Aquele é...não pode ser...O lendário Artorias, o que ele estaria fazendo num lugar como esse?</p>
+				    </div>
+				    <on-touch>
+				    	<change-state target="secret2"/>
+				    </on-touch>
+				</state>
+				<state id="secret1_1">
+					<div left="50" top="10" width="400"   font-size="20" font-color="black">
+						<p transition="animated rollIn">Logo ele que era o melhor amigo de Ornstein, por que ele teria se auto-exilado em um lugar como esse?</p>
 				          <p transition="animated rollIn">Acredito que tem alguma relação com o fato de Ornstein ter sido corrompido e ter ficado malvado e então para não se ver obrigado a matar seu melhor amigo, Artorias se exilou nesse reino paralelo, e todo dia entoa um lamento para seu amigo perdido...</p>
 				    </div>
 				    <on-touch>
@@ -472,19 +497,34 @@
 				<state id="secret2">
 					<div left="50" top="0" width="400"  font-size="20" font-color="black">
 				          <p transition="animated rollIn"> No momento em que Eä pensava, Artorias respondeu:</p>
-				          <p transition="animated rollIn"> Garoto, devo elogiar sua coragem em vir aqui, o que deseja?minha loba Sif me contou que você possui um coração puro e repleto de compaixão, isso me alegra, pois vivo neste exilio e tudo que me rodeia é tristeza.</p>
-				          <p transition="animated rollIn"> Não se passa um minuto sem que eu me lembre de Ornstein e tudo em que ele  fez e se transformou, mas vejo que você pode me libertar desse fardo.</p>
-				          <p transition="animated rollIn">Ele me soltou uma maldição, em que eu jamais poderei ser morto ou me matar, porém ele falou que somente um ser de um coração extremamente bondoso poderia me libertar e deixar eu ver meus antepassados</p>
+				          <p transition="animated rollIn"> Garoto, devo elogiar sua coragem em vir aqui, o que deseja?minha loba Sif me contou que você possui um coração puro e repleto de compaixão, isso me alegra, pois vivo neste exilio e tudo que me rodeia é tristeza.E mais nada...</p>
 				    </div>
 				    <on-touch>
 				    	<change-state target="secret3"/>
 				    </on-touch>
 				</state>
-
+				
 				<state id="secret3">
+					<div left="50" top="0" width="400"  font-size="20" font-color="black">
+						<p transition="animated rollIn"> Não se passa um minuto sem que eu me lembre de Ornstein e tudo em que ele  fez e se transformou, mas vejo que você pode me libertar desse fardo.</p>
+				          <p transition="animated rollIn">Ele me soltou uma maldição, em que eu jamais poderei ser morto ou me matar, porém ele falou que somente um ser de um coração extremamente bondoso poderia me libertar e deixar eu ver meus antepassados</p>
+				    </div>
+				    <on-touch>
+				    	<change-state target="secret5"/>
+				    </on-touch>
+				</state>
+				</state>
+				<state id="secret5">
 					<div left="50" top="50"  width="400"  font-size="20" font-color="red">
 						<p transition="animated rollIn"> Por favor liberte-me dessa vida dolorosa, deixo a você meu anel, talvez seja útil contra Ornstein</p>
 						<p transition="animated rollIn"> E a você Sif, cuide-se, sabes que és a melhor amiga que já tive e sempre estará em minha mente e meu coração, adeus minha querida</p>
+					</div>
+					 <on-touch>
+				    	<change-state target="secret6"/>
+				    </on-touch>
+				</state>
+				<state id="secret7">
+					<div left="50" top="50"  width="400"  font-size="20" font-color="red">
 						<p transition="animated rollIn">Que o tempo a traga de volta para mim</p>
 						<p transition="animated fadeIn">(liberte Artorias de seu fardo(clique nele))</p>
 					</div>
@@ -523,7 +563,6 @@
 				</state>
 				<state id="guardada">
 					<img transition="animated fadeOut" src="graphics/one_ring.gif" left="670" top="450" width="90" height="90"/>
-					<trigger agent="avisoAnel" change-state="ringFound"></trigger>
 				</state>
 		</agent>
 
@@ -536,30 +575,14 @@
 					</on-touch>
 				</state>		
 		</agent>
-			</page>
-
+	</page>
 				<!--Página 7 Céu-->
 			<page id="7" bg-image="graphics/BGSKY.png" bg-sound="graphics/end_song.mp3">
-			<img src="graphics/clouds.png" width="250" height="225" left="200" top="375">
+			
+			<img src="graphics/clouds.png" width="250" height="225" left="200" top="375"/>
+			
 			<img src="graphics/char3.png" width="100" height="130" left="240" top="300"/>
 
-			<agent id="boardinicial">
-				<state id="sem_ação">
-					<div left="50" top="30" font-size="20" font-color="red">
-						<p transition ="animated fadeIn">Agora é a hora de acabar de vez com isso, você vai pagar pelo que fez com o Sol!
-					</p>
-				</state>
-				<state id="comElixir">
-					<div left="50" top="30" font-size="20" font-color="yellow">
-						<p transition="animated fadeIn">Você me salvou EÄ obrigado, devo a você minha gratidão eterna e lembre-se disso até mesmo nos lugares mais escuros, agora batizarei uma estrela em seu nome, que a luz de Eärandel ilumine o mundo.</p>
-					</div>
-				</state>
-				<state id="semElixir">
-					<div left="50" top="30" font-size="20" font-color="red">
-						<p transition="animated fadeIn">Você cometeu um grave erro garoto em não ter trago o elixir AHAHAH, sua curiosidade custou a vida de seu amigo Sol AHAHAHAHA</p>
-					</div>
-				</state>
-			</agent>
 			<agent id="Sol">
 				<state id="parado">
 					<on-touch>
@@ -574,13 +597,32 @@
 				</state>
 				<!--estado do sol voltando a vida-->
 				<state id="recuperado">
-					<trigger agent="boardinicial" change-state="comElixir" ></trigger>
+					<trigger agent="Texto_Final" change-state="comElixir" ></trigger>
 					<img id="sun" src="graphics/thug.png" left="820" top="80" width="200" height="200"/>
 				</state>
 				<!--estado do sol continuando a estar corrompido-->
 				<state id="corrompido">
-					<trigger agent="boardinicial" change-state="semElixir"></trigger>
+					<trigger agent="Texto_Final" change-state="semElixir"></trigger>
 					<img id="sun" src="graphics/bad.moon.png" left="820" top="80" width="230" height="230"/>
+				</state>
+			</agent>
+
+		<!--Texto do final bom e final ruim-->
+			<agent id="Texto_Final">
+				<state id="sem_ação">
+					<div left="50" top="30" font-size="20" font-color="red">
+						<p transition ="animated fadeIn">Agora é a hora de acabar de vez com isso, você vai pagar pelo que fez com o Sol!
+					</p>
+				</state>
+				<state id="comElixir">
+					<div left="50" top="30" font-size="20" font-color="yellow">
+						<p transition="animated fadeIn">Você me salvou EÄ obrigado, devo a você minha gratidão eterna e lembre-se disso até mesmo nos lugares mais escuros, agora batizarei uma estrela em seu nome, que a luz de Eärandel ilumine o mundo.</p>
+					</div>
+				</state>
+				<state id="semElixir">
+					<div left="50" top="30" font-size="20" font-color="red">
+						<p transition="animated fadeIn">Você cometeu um grave erro garoto em não ter trago o elixir AHAHAH, sua curiosidade custou a vida de seu amigo Sol AHAHAHAHA</p>
+					</div>
 				</state>
 			</agent>
 			</page>
